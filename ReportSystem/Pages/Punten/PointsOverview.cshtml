@@ -1,0 +1,33 @@
+﻿@page
+@using ReportSystem.Repositories
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ReportSystem.Pages.Punten.PointsOverview
+@inject UserRepository _userRepository
+@{
+    var loggedIn = _userRepository.IsUserLoggedIn();
+}
+
+@if (loggedIn)
+{
+    <ul class="list-group">
+        @if (Model._Points != null)
+        {
+            foreach (var point in Model._Points)
+            {
+                <form method="post">
+                    <input type="hidden" asp-for="Point!.PointId" value="@point.PointId"/>
+                    <li class="list-group-item">
+                        <label>Meldingspunt</label>
+                        <input type="text" asp-for="Point!.Name" value="@point.Name"/>
+                        <input type="hidden" asp-for="Point!.PointId" value="@point.PointId"/>
+                        <button type="submit" asp-page-handler="UpdatePoint" class="btn btn-primary">Wijzig meldingspunt</button>
+                        <button type="submit" asp-page-handler="DeletePoint" class="btn btn-danger">Verwijder meldingspunt</button>
+                        <button type="submit" asp-page-handler="Qr" class="btn btn-secondary">Zie Qrcode</button>
+
+                    </li>
+
+                </form>
+            }
+        }
+    </ul>
+}

@@ -1,0 +1,30 @@
+﻿@page
+@model ReportSystem.Pages.Options.AddOptions
+
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <form method="post" asp-page-handler="AddOption">
+                <select class="form-select" asp-for="Option!.PointId" asp-items="Model._Points">
+                </select>
+                <input type="hidden"/>
+                <div class="form-group">
+                    <label asp-for="Option!.OptionName"></label>
+                    <input asp-for="Option!.OptionName" type="text" class="form-control" placeholder="Vul optie in.">
+                </div>
+                <div class="form-group">
+                    <label asp-for="Option!.Urgency"></label>
+                    <select name="Urgentie" asp-for="Option!.Urgency">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Voeg optie toe.</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

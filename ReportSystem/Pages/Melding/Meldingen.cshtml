@@ -1,0 +1,52 @@
+﻿@page
+@using ReportSystem.Repositories
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using ReportSystem.Models
+@model ReportSystem.Pages.Melding.Meldingen
+
+
+<div class="container">
+    <div class="card text-center">
+        <div class="row">
+            <h1>Melding maken van punt: @Model.Point.Name</h1>
+        </div>
+    </div>
+    <div class="card row justify-content-center">
+        <div class="container text-center">
+
+            @if (Model.Point != null)
+            {
+                <form method="post" asp-page-handler="AddMelding" asp-route-PointId="@Model.PointId">
+                    <select class="form-select" asp-for="Notice!.OptionId" asp-items="Model._PointOptions">
+                    </select>
+                    <input asp-for="Notice!.Description" type="text" class="form-control" placeholder="Omschrijf melding">
+                    DateTime: <input asp-for="Notice.DateTime"/>
+                    <button type="submit" class="btn btn-primary">Voeg melding toe.</button>
+
+                </form>
+            }
+
+
+            @if (@Model._Notices != null)
+            {
+                foreach (var option in @Model._options)
+                {
+                    foreach (var notice in @Model._Notices)
+                    {
+                        if (notice.OptionId == option.OptionId)
+                        {
+                            <div class="card">
+                                <li class="list-group-item">
+                                    <i>@Model.Point.Name</i>
+                                    <i>@option.OptionName</i>
+                                    <i>@notice.Description</i>
+                                    <i>@notice.DateTime</i>
+                                </li>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

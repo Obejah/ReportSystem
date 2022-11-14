@@ -1,0 +1,21 @@
+﻿@page
+@model ReportSystem.Pages.Punten.AddPoint
+
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+            <form method="post" asp-page-handler="AddPoint">
+                <input type="hidden"/>
+                <div class="form-group">
+                    <label asp-for="Point!.Name"></label>
+                    <input asp-for="Point!.Name" type="text" class="form-control" placeholder="Vul meldingspunt in.">
+                    <input type="hidden" asp-for="Option.OptionName" value="Anders"/>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Voeg Point toe.</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>

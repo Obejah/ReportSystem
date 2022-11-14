@@ -1,0 +1,25 @@
+﻿@page
+@model qrcode;
+
+
+@using System.Drawing
+@{
+}
+
+<div class="card  p-5 align-items-center">
+    QR code
+    <div id="qrcode"></div>
+</div>
+
+
+<script src="js/Site/qrcode.js"> </script>
+<script>
+    var QR_CODE = new QRCode("qrcode", {
+        width: 220,
+        height: 220,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+    });
+    QR_CODE.makeCode(window.location.hostname + "Melding/Meldingen?PointId=@Model.PointId");
+</script>

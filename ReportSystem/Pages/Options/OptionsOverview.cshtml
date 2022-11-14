@@ -1,0 +1,55 @@
+﻿@page
+@using ReportSystem.Repositories
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using ReportSystem.Models
+@model ReportSystem.Pages.Options.OptionsOverview
+
+@inject UserRepository _userRepository
+@{
+    var loggedIn = _userRepository.IsUserLoggedIn();
+}
+
+@if (loggedIn)
+{
+    <div class="container">
+        <div class="row">
+            @if (Model._Points != null)
+            {
+                @foreach (var point in Model._Points)
+                {
+                    <form method="post">
+                        <input type="hidden" asp-for="Point!.PointId" value="@point.PointId"/>
+                    </form>
+
+                    <ul class="list-group">
+                        @if (Model._Options != null)
+                        {
+                            foreach (var option in Model._Options)
+                            {
+                                if (option.PointId == point.PointId)
+                                {
+                                    <form method="post">
+                                        <input type="hidden" asp-for="Option!.OptionId" value="@option.OptionId"/>
+                                        <li class="list-group-item">
+                                            <label>@point.Name</label>
+                                            <label>Opties</label>
+                                            <input type="text" asp-for="Option!.OptionName" value="@option.OptionName"/>
+                                            <select name="Urgentie" asp-for="Option!.Urgency">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                            </select>
+                                            <input type="hidden" asp-for="Option!.PointId" value="@option.PointId"/>
+                                            <button type="submit" asp-page-handler="UpdateOption" class="btn btn-primary">Wijzig optie</button>
+                                            <button type="submit" asp-page-handler="DeleteOption" class="btn btn-danger">Verwijder optie</button>
+                                        </li>
+                                    </form>
+                                }
+                            }
+                        }
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+}
